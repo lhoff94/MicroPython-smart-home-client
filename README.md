@@ -15,3 +15,7 @@ Additonally the repository contains mock drivers to test the code without the se
 Tested with MicroPython v1.18
 
 [1] See here for a compatible Docker image:  https://hub.docker.com/r/lhoff94/micropython-runtime
+
+## Flashing 
+
+To flash the code to a compatible 

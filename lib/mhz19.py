@@ -1,6 +1,7 @@
 """
 Micropython MH-Z19 CO2 Sensor driver.
-Source:
+Source: https://github.com/overflo23/MH-Z19_MicroPython/blob/main/mhz19.py
+Commit: 627bdc7d57e51582d7937f8465f1e0bf30cdb962
 License:
 MIT License
 Copyright (c) 2020 der flo

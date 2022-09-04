@@ -1,21 +1,22 @@
 {
+{
     "wifi_ssid": "",
     "wifi_password": "",
-    
-    "physical" : false,
-    "temp_sensor_pin": 25,
-    "co2_sensor_uart":2,
-    "sensor_name": "",
-    
-    "measure_interval": 30,
 
-    "mock_endpoint": "",
-
-    "mqtt_broker": "",
-    "mqtt_topic": "",
-    "mqtt_user": "",
+    "mqtt_broker": "homeassistant",
+    "mqtt_user": "mqtt",
     "mqtt_password": "",
-    "mqtt_port": 1883
+    "mqtt_port": 1883,
     
+    "physical" : true,
+    "mock_endpoint": "http://host:8080/",
 
+    "sensor_name": "sensor-node-2",
+    "manufacturer": "Espressif",
+    "model": "ESP32",
+    "sw_version": "1.1",
+    
+    "measure_interval": 30
+
+}
 }

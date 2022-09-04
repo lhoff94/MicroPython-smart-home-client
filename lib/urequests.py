@@ -1,5 +1,5 @@
 '''
-Micropython bmp180 temperature and sensor driver.
+Micropython http request library.
 Source: https://github.com/micropython/micropython-lib/blob/master/python-ecosys/urequests/setup.py
 Commit: a3d6d29b1b9de2bb147e0751c08a39608ebe06c8
 License:

@@ -2,9 +2,22 @@ import time
 
 class sensor:
 
-    def __init__(self):
-        pass
+    def __init__(self, device_class, unit, name):
+        self.device_class = device_class
+        self.unit = unit
+        self.name = name
 
+    def get_device_class(self):
+        return self.device_class
+
+    def get_unit(self):
+        return self.unit
+    
+    def get_name(self):
+        return self.name
+    
+    def get_value_template(self):
+        return "{{ value_json." + self.device_class + " }}"
 
     def read():
         pass
@@ -19,6 +32,7 @@ class light_sensor(sensor):
         :param sda: pin number of the serial data line for the i2c interface
         :param addr: i2c adreess, 0x23 is default, if addr pin is pulled high it is 0x5c
         """
+        super().__init__("illuminance", "lx", "Helligkeit")
         if physical:
             from machine import Pin, SoftI2C
             from bh1750 import BH1750
@@ -41,7 +55,7 @@ class pressure_sensor(sensor):
         :param scl: pin number of the serial clock line for the i2c interface
         :param sda: pin number of the serial data line for the i2c interface
         """
-        super().__init__()
+        super().__init__("pressure", "mbar", "Luftdruck")
         if physical:
             from machine import Pin, SoftI2C
             from bmp180 import BMP180
@@ -53,15 +67,8 @@ class pressure_sensor(sensor):
         self.sensor = BMP180(self.i2c)
         self.sensor.oversample_sett = 2
 
-    def read(self, unit="hP"):
-        if unit == "P":
-            return self.sensor.pressure
-        elif unit == "hP" or unit == "mbar":
-            return self.sensor.pressure/100
-        elif unit == "Bar":
-            return self.sensor.pressure/100000
-        else:
-            raise ValueError("Unknown unit, use P, hP, mbar or Bar") 
+    def read(self):
+        return self.sensor.pressure/100
 
     
     def read_temp(self):
@@ -75,11 +82,11 @@ class pressure_sensor(sensor):
 class co2_sensor(sensor):
 
     def __init__(self, physical, uart):
+        super().__init__("carbon_dioxide", "ppm", "CO2-Konzentration")
         if physical: 
             from mhz19 import mhz19
         else:
             from mhz19_mock import mhz19
-        super().__init__()
         self.sensor = mhz19(uart)
     
     def read(self):
@@ -98,7 +105,7 @@ class co2_sensor(sensor):
 class temperature_sensor(sensor):
 
     def __init__(self, physical, pin):
-        super().__init__()
+        super().__init__("temperature", "°C", "Temperatur")
         if physical:
             from machine import Pin
             from ds18x20 import DS18X20

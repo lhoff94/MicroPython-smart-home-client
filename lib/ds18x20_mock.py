@@ -7,7 +7,7 @@ class DS18X20:
         self.onewire = onewire
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['sensor_name']}/"
+        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
         return None
 
     def scan(self):
@@ -21,6 +21,9 @@ class DS18X20:
         '''
         Temperature in degree C.
         '''
-        response = urequests.get(self.endpoint + 'Temperature').json()
+        if self.endpoint != "":
+            response = urequests.get(self.endpoint + 'Temperature').json()
+        else:
+            response = 99
         return(response)
 

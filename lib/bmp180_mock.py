@@ -13,7 +13,7 @@ class BMP180():
     def __init__(self, i2c_bus):
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['sensor_name']}/"
+        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
         # settings to be adjusted by user
         self.oversample_setting = 3
         self.baseline = 101325.0
@@ -37,7 +37,11 @@ class BMP180():
         '''
         Temperature in degree C.
         '''
-        response = urequests.get(self.endpoint + 'Temperature').json()
+        
+        if self.endpoint != "":
+            response = urequests.get(self.endpoint + 'Temperature').json()
+        else:
+            response = 99
         return(response)
 
     @property
@@ -45,7 +49,11 @@ class BMP180():
         '''
         Pressure in pascal.
         '''
-        response = urequests.get(self.endpoint + 'Pressure').json()
+        
+        if self.endpoint != "":
+            response = urequests.get(self.endpoint + 'Pressure').json()
+        else:
+            response = 99
         return(response)
         
     @property

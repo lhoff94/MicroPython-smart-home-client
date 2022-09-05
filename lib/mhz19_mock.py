@@ -14,12 +14,17 @@ class mhz19:
         self.co2status = 0
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['sensor_name']}/"
+        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
 
     def get_data(self):
         # leave in to ensure timining is similar to origianl Sensor
         time.sleep(0.1)
-        self.ppm = urequests.get(self.endpoint + 'CO2').json()
-        self.temp = urequests.get(self.endpoint + 'Temperature').json()
+
+        if self.endpoint != "":
+            self.ppm = urequests.get(self.endpoint + 'CO2').json()
+            self.temp = urequests.get(self.endpoint + 'Temperature').json()
+        else:
+            self.ppm = 99
+            self.temp = 99
         return(1)
 

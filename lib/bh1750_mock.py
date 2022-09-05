@@ -20,10 +20,13 @@ class BH1750():
     def __init__(self, bus, addr=0x23):
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['sensor_name']}/"        
+        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"        
         pass
 
     def luminance(self, mode):
         """Sample luminance (in lux), using specified sensor mode."""
-        response = urequests.get(self.endpoint + 'Luminance').json()
+        if self.endpoint != "":
+            response = urequests.get(self.endpoint + 'Luminance').json()
+        else:
+            response = 99
         return(response)

@@ -1,5 +1,6 @@
 import time
 
+
 class sensor:
 
     def __init__(self, device_class, unit, name, id):
@@ -23,7 +24,6 @@ class sensor:
     def read():
         pass
 
-
 class light_sensor(sensor):
 
     def __init__(self, physical, pins, id, addr=0x23):
@@ -46,7 +46,6 @@ class light_sensor(sensor):
     
     def read(self):
         return self.sensor.luminance(self.res)
-
 
 class pressure_sensor(sensor):
 
@@ -125,8 +124,6 @@ class temperature_sensor(sensor):
         self.sensor.convert_temp()
         time.sleep_ms(750)
         return self.sensor.read_temp(self.sensor_addr)
-
-    
 
 
 

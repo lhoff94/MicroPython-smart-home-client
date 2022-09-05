@@ -7,7 +7,10 @@ class DS18X20:
         self.onewire = onewire
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
+        if config['mock_endpoint'] != "":
+            self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
+        else:
+            self.endpoint = "" 
         return None
 
     def scan(self):

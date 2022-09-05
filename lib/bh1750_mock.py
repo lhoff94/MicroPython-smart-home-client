@@ -20,7 +20,10 @@ class BH1750():
     def __init__(self, bus, addr=0x23):
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"        
+        if config['mock_endpoint'] != "":
+            self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
+        else:
+            self.endpoint = "" 
         pass
 
     def luminance(self, mode):

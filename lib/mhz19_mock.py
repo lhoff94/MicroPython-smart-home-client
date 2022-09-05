@@ -14,7 +14,10 @@ class mhz19:
         self.co2status = 0
         with open('config.json') as config_file:
             config = json.load(config_file)
-        self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
+        if config['mock_endpoint'] != "":
+            self.endpoint = f"{config['mock_endpoint']}{config['node_name']}/"
+        else:
+            self.endpoint = "" 
 
     def get_data(self):
         # leave in to ensure timining is similar to origianl Sensor

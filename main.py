@@ -31,7 +31,7 @@ for sensor in config["sensors"]:
 client = setup.setup_connection(config)
 
 # Initializing HA decive discovery
-group = setup.setup_device_discovery(config,client, sensor_list)
+group = setup.setup_device_discovery(config, client, sensor_list)
 
 
 # start measuring

@@ -15,7 +15,6 @@ def setup_connection(config):
         config['node_name'] = config['node_name']+ "-" + sys.argv[1]
     except:
         pass
-
     connected = False
     if config['mqtt_user'] == "" or config['mqtt_password'] == "":
         client = MQTTClient(config['node_name'], config['mqtt_broker'], config['mqtt_port'],keepalive=35)

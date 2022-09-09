@@ -3,6 +3,7 @@ Mock Module for the MHZ19 pressure sensor.
 Behaves like the MHZ19 library to be used as a drop in replacement
 '''
 
+import random
 import urequests
 import time
 import json
@@ -27,7 +28,7 @@ class mhz19:
             self.ppm = urequests.get(self.endpoint + 'CO2').json()
             self.temp = urequests.get(self.endpoint + 'Temperature').json()
         else:
-            self.ppm = 99
-            self.temp = 99
+            self.ppm = 50 + random.randint(0, 10)
+            self.temp = 50 + random.randint(0, 10)
         return(1)
 

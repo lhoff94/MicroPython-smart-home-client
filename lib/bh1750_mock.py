@@ -4,6 +4,7 @@ Micropython BH1750 ambient light sensor driver.
 
 import urequests
 import json
+import random
 
 
 class BH1750():
@@ -31,5 +32,5 @@ class BH1750():
         if self.endpoint != "":
             response = urequests.get(self.endpoint + 'Luminance').json()
         else:
-            response = 99
+            response = 50 +  random.randint(0, 10)
         return(response)

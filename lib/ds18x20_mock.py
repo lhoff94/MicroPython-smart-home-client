@@ -1,3 +1,4 @@
+import random
 import urequests
 import json
 
@@ -27,6 +28,6 @@ class DS18X20:
         if self.endpoint != "":
             response = urequests.get(self.endpoint + 'Temperature').json()
         else:
-            response = 99
+            response = 50 + random.randint(0, 10)
         return(response)
 

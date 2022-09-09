@@ -1,5 +1,6 @@
 # BMP180 class
 import math
+import random
 import urequests
 import json
 
@@ -55,7 +56,7 @@ class BMP180():
         if self.endpoint != "":
             response = urequests.get(self.endpoint + 'Pressure').json()
         else:
-            response = 99
+            response = 50 +  random.randint(0, 10)
         return(response)
         
     @property

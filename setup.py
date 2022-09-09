@@ -12,7 +12,7 @@ from lib.umqtt import MQTTClient
 # Method to initialized the MQTT connection
 def setup_connection(config):
     try:
-        config['node_name'] = config['node_name']+ "-" sys.argv[1]
+        config['node_name'] = config['node_name']+ "-" + sys.argv[1]
     except:
         pass
 

@@ -28,7 +28,7 @@ class mhz19:
             self.ppm = urequests.get(self.endpoint + 'CO2').json()
             self.temp = urequests.get(self.endpoint + 'Temperature').json()
         else:
-            self.ppm = 50 + random.randint(0, 10)
-            self.temp = 50 + random.randint(0, 10)
+            self.ppm = 450 + random.getrandbits(5)
+            self.temp = 25 + random.getrandbits(4)
         return(1)
 

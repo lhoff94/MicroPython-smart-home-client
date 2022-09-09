@@ -32,5 +32,5 @@ class BH1750():
         if self.endpoint != "":
             response = urequests.get(self.endpoint + 'Luminance').json()
         else:
-            response = 50 +  random.randint(0, 10)
+            response = 100 +  (16-random.getrandbits(5))
         return(response)

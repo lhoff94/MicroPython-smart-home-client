@@ -56,7 +56,7 @@ class BMP180():
         if self.endpoint != "":
             response = urequests.get(self.endpoint + 'Pressure').json()
         else:
-            response = 50 +  random.randint(0, 10)
+            response = 1010 +  (4-random.getrandbits(3))
         return(response)
         
     @property

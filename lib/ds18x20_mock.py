@@ -28,6 +28,6 @@ class DS18X20:
         if self.endpoint != "":
             response = urequests.get(self.endpoint + 'Temperature').json()
         else:
-            response = 50 + random.randint(0, 10)
+            response = 25 + (4-random.getrandbits(3))
         return(response)
 

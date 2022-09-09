@@ -7,20 +7,20 @@ from lib.ha_mqtt import Sensor,EntityGroup
 from lib.umqtt import MQTTClient
 
 
-additional_node_id = ""
-try:
-    additional_node_id = sys.argv[1]
-except:
-    pass
 
 
 # Method to initialized the MQTT connection
 def setup_connection(config):
+    try:
+        config['node_name'] = config['node_name']+ "-" sys.argv[1]
+    except:
+        pass
+
     connected = False
     if config['mqtt_user'] == "" or config['mqtt_password'] == "":
-        client = MQTTClient(config['node_name'] +"-"+ additional_node_id, config['mqtt_broker'], config['mqtt_port'],keepalive=35)
+        client = MQTTClient(config['node_name'], config['mqtt_broker'], config['mqtt_port'],keepalive=35)
     else:
-        client = MQTTClient(config['node_name'] +"-"+ additional_node_id, config['mqtt_broker'], config['mqtt_port'], config['mqtt_user'], config['mqtt_password'],keepalive=30)
+        client = MQTTClient(config['node_name'], config['mqtt_broker'], config['mqtt_port'], config['mqtt_user'], config['mqtt_password'],keepalive=30)
     while not connected:
         try:
             client.connect()
@@ -33,19 +33,19 @@ def setup_connection(config):
 # Method to initialized ha device discovery and announce device and sensors
 def setup_device_discovery(config,client, sensor_list):
     device_conf = { 
-        "identifiers": config['node_name'] +"-"+ additional_node_id, 
-        "name": config['node_name'] +"-"+ additional_node_id,
+        "identifiers": config['node_name'], 
+        "name": config['node_name'],
         "manufacturer": config['manufacturer'],
         "model": config['model'],
         "sw_version": config['sw_version'] }
     common_conf = { "device": device_conf }
-    group = EntityGroup(client, bytes(config['node_name'] +"-"+ additional_node_id,'ascii'), extra_conf=common_conf)
+    group = EntityGroup(client, bytes(config['node_name'] ,'ascii'), extra_conf=common_conf)
     for sensor in sensor_list:
         extra_config = { 
             "unit_of_measurement": sensor.get_unit(), 
             "device_class": sensor.get_device_class(),
             "value_template": sensor.get_value_template(),
-            "unique_id": config['node_name'] +"-"+ additional_node_id + "-" + sensor.get_name() }
+            "unique_id": config['node_name'] + "-" + sensor.get_name() }
         group.create_sensor(bytes(sensor.get_name(),'ascii'), bytes(sensor.get_name(),'ascii'), extra_conf=extra_config)
     return group
 

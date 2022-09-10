@@ -45,5 +45,6 @@ while True:
     except OSError:
         # reconnect if connection get lost
         print("Connection lost, try reconnect")
-        client = setup.setup_connection()
+        client = setup.setup_connection(config)
+        group = setup.setup_device_discovery(config, client, sensor_list)
     time.sleep(config['measure_interval'])

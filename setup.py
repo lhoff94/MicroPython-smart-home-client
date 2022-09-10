@@ -2,6 +2,7 @@ import sensors
 # The Micropython Unix isn't including "/lib" in its path
 import sys
 import json
+import time
 sys.path.append('lib')
 from lib.ha_mqtt import Sensor,EntityGroup
 from lib.umqtt import MQTTClient
@@ -22,11 +23,17 @@ def setup_connection(config):
         client = MQTTClient(config['node_name'], config['mqtt_broker'], config['mqtt_port'], config['mqtt_user'], config['mqtt_password'],keepalive=30)
     while not connected:
         try:
+            time.sleep(1)
             client.connect()
             connected = True
             print("Connected to MQTT Server")
         except OSError:
             print(f"Could not yet reach host {config['mqtt_broker']} on port {config['mqtt_port']}")
+        except Exception as e:
+            print(f"Unkown Error({e}) during connection setup, trying again")
+        else:
+            continue
+        
     return client
 
 # Method to initialized ha device discovery and announce device and sensors

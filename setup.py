@@ -7,9 +7,6 @@ sys.path.append('lib')
 from lib.ha_mqtt import Sensor,EntityGroup
 from lib.umqtt import MQTTClient
 
-
-
-
 # Method to initialized the MQTT connection
 def setup_connection(config):
     try:
